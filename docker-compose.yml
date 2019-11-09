@@ -2,14 +2,14 @@ version: '2'
 
 services: 
   frontend:
-    build: front
+    build: ./front
     ports: 
       - "4200:4200"
     container_name: solinc-front
     restart: always
 
   backend:
-    build: back
+    build: ./back
     ports: 
       - "3333:3333"
     container_name: solinc-back
@@ -18,6 +18,20 @@ services:
      - database
 
   database:
-    build: db
+    image: mysql:5.7
+    command: --init-file /data/application/init.sql
+    volumes:
+      - ./db/init.sql:/data/application/init.sql
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: solinc
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports: 
+      - "3307:3306"
+    expose:
+
+      - "3307"
     container_name: solinc-db
     restart: always
