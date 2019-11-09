@@ -5,14 +5,12 @@ services:
     build: ./front
     ports: 
       - "4200:4200"
-    container_name: solinc-front
     restart: always
 
   backend:
     build: ./back
     ports: 
       - "3333:3333"
-    container_name: solinc-back
     restart: always
     links: 
      - database
@@ -33,5 +31,4 @@ services:
     expose:
 
       - "3307"
-    container_name: solinc-db
     restart: always
