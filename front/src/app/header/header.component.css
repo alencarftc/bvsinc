@@ -1,0 +1,136 @@
+.header {
+    padding: 30px 0 0;
+    background: #006fff;
+}
+
+.header-inner,
+.list {
+    padding: 0 20px;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .header-inner div {
+    flex-basis: 25%;
+} */
+
+.header-inner .user-buttons {
+    flex-basis: 35%;
+}
+
+.title {
+    text-shadow: 2px 2px 2px #454545;
+    font-size: 42px;
+}
+
+.description {
+    text-shadow: 0.5px 0.5px #202035;
+    font-weight: 500;
+    font-size: 22px;
+}
+
+.title,
+.description {
+    color: #fafafa;
+}
+
+.user-panel {
+    color: #fafafa;
+}
+
+.user-tools-btn {
+    margin: 0 auto;
+    width: 100%;
+    font-size: 14px;
+    border-radius: 5px;
+    /* cursor: pointer; */
+    border: 1px solid #d59153;
+    color: #fafafa;
+    padding: 5px;
+    background: #d59153;
+}
+
+.user-panel,
+.user-buttons {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.btn {
+    cursor: pointer;
+    padding: 7.5px 20px;
+    font-size: 14px;
+    border: none;
+    border-bottom: 0px solid #b1003b;
+    max-width: 180px;
+    font-weight: 700;
+    width: 100%;
+    transition: border-bottom 300ms ease;
+    color: #fafafa;
+}
+.login-btn { background: #ee00ff }
+.register-btn { background: #ff0055 }
+
+.login-btn:hover { border-bottom: 3px solid #b000bd !important }
+.register-btn:hover { border-bottom: 3px solid #b1003b !important }
+
+.navbar {
+    font-weight: 700;
+    margin: 25px 0 0;
+    background: #fafafa;
+    box-shadow: 0 3px 3px -3px #d9d9d9;
+}
+
+.list {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 0;
+    margin-left: auto;
+    width: 75%;
+    max-height: 41px;
+}
+.item {
+    transition: color 300ms ease;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #666;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-bottom 300ms ease;
+    border-bottom: 0px solid #b1003b;
+}
+
+.item:hover {
+    border-bottom: 5px solid #b1003b;
+}
+
+.active {
+    transition: border-bottom 300ms ease;
+    background:  #006fff;
+    color: #fafafa;
+}
+.active:hover {
+    background: #006fff;
+    border-bottom: 5px solid #093875 !important;
+}
+
+@media screen and (min-width: 768px) {
+    .user-buttons {
+        align-items: flex-end;
+    }
+    .user-buttons button {
+        flex-basis: 50%;
+        margin: 3px 0;
+        padding: 7.5px 5px;
+    }
+
+    .header-inner,
+    .list {
+        padding: 0 15vmax;
+    }
+}

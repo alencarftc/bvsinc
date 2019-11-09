@@ -1,0 +1,39 @@
+<header class="header">
+    <div class="header-inner">
+        <div>
+            <h1 class="title">BSInc</h1>
+            <p class="description">Biblioteca Virtual de Soluções Inclusivas</p>
+        </div>
+        <div class="user-buttons" *ngIf="!isLogged; else userPanel">
+            <button class="login-btn btn" (click)="goTo('login')">Já tenho cadastro</button>
+            <button class="register-btn btn" (click)="goTo('register')">Quero me cadastrar!</button>
+        </div>
+        <ng-template #userPanel>
+            <div class="user-panel">
+                <p class="greeting">Olá, 
+                    <b>
+                        {{ loggedUser && loggedUser.name ? loggedUser.name : '' }}
+                    </b>
+                    <!-- <u><b style="cursor: pointer"
+                        (click)="goTo('usuarios/' + loggedUser.id)">
+                    {{ loggedUser && loggedUser.name ? loggedUser.name : '' }}
+                    </b></u> -->
+                </p>
+            </div>
+        </ng-template>
+    </div>
+
+    <nav class="navbar">
+        <ul class="list">
+            <li *ngFor="let item of nav" 
+                class="item"
+                [ngClass]="item.isActive ? 'active' : ''" 
+                (click)="fromItemGoTo(item)">
+                {{ item.label }}
+            </li>
+            <li (click)="goTo('logout')"
+                *ngIf="isLogged"
+                class="item">Sair</li>
+        </ul>
+    </nav>
+</header>

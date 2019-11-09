@@ -1,0 +1,50 @@
+
+<div class="wrapper" *ngIf="!isCourseOk && !sucess">
+    <h2 class="title">Cadastrar novo curso</h2>
+    <form [formGroup]="courseFormGroup">
+        <mat-form-field matFormFieldControl>
+            <input matInput
+                placeholder="Título"
+                formControlName="course" 
+                required />
+            <ng-template class="error-txt" 
+                *ngIf="courseFormGroup.get('course').errors && 
+                        courseFormGroup.get('course').touched">
+                O curso deve ser selecionado
+            </ng-template>
+        </mat-form-field>
+        <button class="btn" (click)="registerNewCourse()" >Cadastrar</button>
+    </form>  
+</div>
+<div class="wrapper" *ngIf="isCourseOk && !sucess">
+    <h2 class="title">Cadastrar nova disciplina</h2>
+    <form [formGroup]="disciplineFormGroup">
+        <mat-form-field matFormFieldControl>
+            <input matInput
+                placeholder="Título"
+                formControlName="discipline" 
+                required />
+            <ng-template class="error-txt" 
+                *ngIf="disciplineFormGroup.get('discipline').errors && 
+                        disciplineFormGroup.get('discipline').touched">
+                A disciplina deve ser selecionada
+            </ng-template>
+        </mat-form-field>
+        <button class="btn" (click)="registerNewDiscipline()">Cadastrar</button>
+    </form>  
+</div>
+
+<div *ngIf="!isCourseOk && sucess">
+    <div class="wrapper">
+        <h2 class="title">Curso cadastrado com sucesso!</h2>
+        <img class="image" src="../../../assets/school1.png" alt="Course" />
+        <button autofocus class="btn full-btn" (click)="onNoClick()">Continuar</button>
+    </div>
+</div>
+<div *ngIf="isCourseOk && sucess">
+    <div class="wrapper">
+        <h2 class="title">Disciplina cadastrada com sucesso!</h2>
+        <img class="image" src="../../../assets/school2.png" alt="Discipline" />
+        <button autofocus class="btn full-btn" (click)="onNoClick()">Continuar</button>
+    </div>
+</div>

@@ -1,0 +1,186 @@
+<si-header></si-header>
+
+<article class="article">
+    <body class="form-wrapper">
+        <div class="form-inner">
+            <h2 class="title">Nova ferramenta</h2>
+            <mat-horizontal-stepper (selectionChange)="update($event)" [linear]="true" #stepper>
+                <mat-step [stepControl]="courseFormGroup">
+                    <form [formGroup]="courseFormGroup">
+                        <ng-template matStepLabel>Dados do Curso</ng-template>
+                        <mat-form-field>
+                            <mat-label for="course">Curso</mat-label>
+                            <mat-select
+                                formControlName="course" 
+                                required>
+                                <mat-option value="" selected>Selecione um curso</mat-option>
+                                <mat-option 
+                                    *ngFor="let course of courses" 
+                                    [value]="course.codigo">
+                                    {{ course.descricao }}
+                                </mat-option>
+                            </mat-select>
+                            <ng-template class="error-txt" 
+                                *ngIf="courseFormGroup.get('course').errors && 
+                                        courseFormGroup.get('course').touched">
+                                O curso deve ser selecionado
+                        </ng-template>
+                        </mat-form-field>
+                        <button class="btn next-btn btn-three submit-btn"
+                            (click)="openNewCourseDialog()">
+                            Cadastrar novo curso
+                        </button>
+                        <br/>
+                        <br/>
+                        <button class="btn submit-btn" 
+                            [disabled]="!courseFormGroup.get('course').value"
+                            matStepperNext>
+                            Avançar
+                        </button>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="disciplineFormGroup">
+                    <ng-template matStepLabel>Dados da Disciplina</ng-template>
+                    <form [formGroup]="disciplineFormGroup">
+                        <mat-form-field>
+                            <mat-label for="course">Disciplina</mat-label>
+                            <mat-select
+                                formControlName="discipline" 
+                                required>
+                                <mat-option value="" selected>Selecione uma disciplina</mat-option>
+                                <mat-option 
+                                    *ngFor="let discipline of disciplines" 
+                                    [value]="discipline.codigo">
+                                    {{ discipline.descricao }}
+                                </mat-option>
+                            </mat-select>
+                            <ng-template class="error-txt" 
+                                *ngIf="disciplineFormGroup.get('discipline').errors && 
+                                        disciplineFormGroup.get('discipline').touched">
+                                A disciplina deve ser selecionada
+                            </ng-template>
+                        </mat-form-field>
+                        <button class="btn next-btn btn-two submit-btn"
+                            (click)="openNewDisciplineDialog()">
+                            Cadastrar nova disciplina
+                        </button>
+        
+                        <div class="row">
+                            <button class="btn" matStepperPrevious>Voltar</button>
+                            <button class="btn submit-btn" 
+                                [disabled]="!disciplineFormGroup.get('discipline').value"
+                                matStepperNext>
+                                Avançar
+                            </button>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step>
+                    <ng-template matStepLabel>Dados da Ferramenta</ng-template>
+                    <form class="form" [formGroup]="newToolForm" (ngSubmit)="onSubmit()">
+                            <div class="custom-row">
+                                <div class="field">
+                                    <label class="label" for="title">Título</label><br/>
+                                    <input
+                                        type="text" 
+                                        formControlName="title" 
+                                        placeholder="Título" 
+                                        required />
+                                    <div class="error-txt" *ngIf="newToolForm.get('title').errors && newToolForm.get('title').touched">
+                                        O título deve ser preenchido
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label" for="objetivo">Objetivo</label><br/>
+                                    <input 
+                                        type="text"
+                                        formControlName="objective" 
+                                        placeholder="Objetivo"
+                                        required />
+                                    <div class="error-txt" 
+                                        *ngIf="newToolForm.get('objective').errors && 
+                                                newToolForm.get('objective').touched">
+                                        O objetivo deve ser preenchido
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label" for="description">Descrição</label><br/>
+                                <input
+                                    type="text" 
+                                    formControlName="description" 
+                                    placeholder="Descrição" 
+                                    required />
+                                <div class="error-txt" 
+                                    *ngIf="newToolForm.get('description').errors && 
+                                            newToolForm.get('description').touched">
+                                    Uma descrição deve ser preenchida
+                                </div>
+                            </div>
+                        
+                            <div class="triple-col-row">
+                                <div class="field">
+                                    <label class="label" for="website">Website</label><br/>
+                                    <input
+                                        type="text" 
+                                        formControlName="website" 
+                                        placeholder="Website" 
+                                        required />
+                                    <div class="error-txt" 
+                                        *ngIf="newToolForm.get('website').errors && 
+                                                newToolForm.get('website').touched">
+                                        A senha é obrigatório
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label" for="classification">Classificação</label><br/>
+                                    <input
+                                        type="text" 
+                                        formControlName="classification" 
+                                        placeholder="Classificação"
+                                        required />
+                                    <div class="error-txt" 
+                                        *ngIf="newToolForm.get('classification').errors && 
+                                                newToolForm.get('classification').touched">
+                                        A classificação deve ser preenchida
+                                    </div>        
+                                </div>
+                                <div class="field">
+                                    <label class="label" for="type">Tipo</label><br/>
+                                    <input
+                                        type="text" 
+                                        formControlName="type" 
+                                        placeholder="Tipo"
+                                        required />
+                                    <div class="error-txt" 
+                                        *ngIf="newToolForm.get('type').errors && 
+                                                newToolForm.get('type').touched">
+                                        O tipo deve ser preenchido
+                                    </div>        
+                                </div>
+                            </div>
+            
+                            <div class="field">
+                                <label class="label" for="actors">Público-alvo</label><br/>
+                                <input
+                                    type="text" 
+                                    formControlName="actors" 
+                                    placeholder="Público-alvo"
+                                    required />
+                                <div class="error-txt" 
+                                    *ngIf="newToolForm.get('actors').errors && 
+                                            newToolForm.get('actors').touched">
+                                    O público-alvo deve ser preenchido
+                                </div>        
+                            </div>
+                            <input 
+                                type="submit" 
+                                class="btn submit-btn" 
+                                value="Cadastrar"
+                                [disabled]="!validate()" />
+                    </form>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </div>
+    </body>
+</article>

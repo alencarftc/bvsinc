@@ -1,0 +1,38 @@
+<article>
+    <header>
+        <button 
+            class="back-btn" 
+            (click)="goTo('')">
+            Voltar
+        </button>
+    </header>
+    <body class="form-wrapper">
+        <h2 class="title">SolInc</h2>
+        <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="field">
+                <label class="label" for="user">Usuário</label><br/>
+                <input (focus)="error = ''"
+                    type="text" 
+                    formControlName="user" 
+                    placeholder="user123" 
+                    required />
+            </div>
+            <div class="field">
+                <label class="label" for="password">Senha</label><br/>
+                <input (focus)="error = ''"
+                    type="password" 
+                    formControlName="password" 
+                    placeholder="********" 
+                    required />
+            </div>
+            <div class="field" *ngIf="error">
+                <p class="error-txt"> {{ error }}</p>
+            </div>
+            <input type="submit" class="submit-btn" value="Entrar" />
+        </form>
+        <a class="first-access-txt" (click)="goTo('register')">
+            Seu primeiro acesso? Clique aqui.
+        </a>
+    </body>
+</article>
+

@@ -1,0 +1,57 @@
+<div class="row">
+    <h2 class="title">Soluções</h2>
+    <button (click)="goToNewTool()" class="add-btn">Adicionar</button>
+</div>
+
+<div class="list-inner" *ngIf="tools && tools.length > 0; else noTools">
+    <ul class="list">
+        <li class="item" *ngFor="let tool of tools">
+            <details>
+                <summary class="summary">
+                    <h4 class="title">{{ tool.titulo }}</h4>
+                    <p class="description">{{ tool.descFerramenta }}</p>
+                </summary>
+                <div class="content">
+                    <div class="row">
+                        <h5 class="subtitle">Objetivo</h5>
+                        <p class="text">{{ tool.objFerramenta }}</p>
+                    </div>
+                    <div class="row">
+                        <h5 class="subtitle">Site</h5>
+                        <a class="text" [href]="tool.descFerramenta">{{ tool.siteFerramenta }}</a>
+                    </div>
+                    <div class="row">
+                        <h5 class="subtitle">Classificação</h5>
+                        <p class="text">{{ tool.clasFerramenta }}</p>
+                    </div>
+                    <div class="row">
+                        <h5 class="subtitle">Tipo</h5>
+                        <p class="text">{{ tool.tipoFerramenta }}</p>
+                    </div>
+                    <div class="row">
+                        <h5 class="subtitle">Participantes</h5>
+                        <p class="text">{{ tool.patFerramenta }}</p>
+                    </div>
+                </div>
+            </details>
+        </li>
+    </ul>
+    <mat-paginator
+        hidePageSize="true"
+        [length]="totalLength"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        (page)="paginate($event)">
+    </mat-paginator>
+</div>
+<ng-template #noTools>
+    <div class="no-tools-txt" *ngIf="!loaded; else noToolsLoaded">
+        Carregando...
+    </div>
+
+    <ng-template #noToolsLoaded>
+        <div class="no-tools-txt">
+            Ainda não existem ferramentas cadastradas.
+        </div>
+    </ng-template>
+</ng-template>

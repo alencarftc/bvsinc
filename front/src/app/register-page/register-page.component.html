@@ -1,0 +1,91 @@
+<article>
+    <header>
+        <button 
+        class="back-btn" 
+        (click)="goTo('')">
+        Voltar
+    </button>
+</header>
+<body class="form-wrapper">
+    <h2 class="title">SolInc</h2>
+    <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <fieldset>
+            <legend>Novo usuário</legend>
+            <div class="field">
+                <label class="label" for="name">Nome</label><br/>
+                <input
+                    type="text" 
+                    formControlName="name" 
+                    placeholder="José Silva" 
+                    required />
+                <div class="error-txt" *ngIf="registerForm.get('name').errors && registerForm.get('name').touched">
+                    O nome é obrigatório
+                </div>
+            </div>
+            <div class="custom-row">
+                <div class="field">
+                    <label class="label" for="email">Email</label><br/>
+                    <input 
+                        type="email"
+                        formControlName="email" 
+                        placeholder="jose.silva@email.com"
+                        required />
+                    <div class="error-txt" *ngIf="(registerForm.get('email').errors || validateEmail(registerForm.get('email').value)) && registerForm.get('email').touched">
+                        Email inválido
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="user">Usuário</label><br/>
+                    <input
+                        type="text" 
+                        formControlName="user" 
+                        placeholder="jose.silva098" 
+                        required />
+                    <div class="error-txt" *ngIf="registerForm.get('user').errors && registerForm.get('user').touched">
+                        O usuário é obrigatório
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="field">
+                    <label class="label" for="password">Senha</label><br/>
+                    <input
+                        type="password" 
+                        formControlName="password" 
+                        minlength="4"
+                        placeholder="********" 
+                        required />
+                    <div class="error-txt" *ngIf="registerForm.get('password').errors && registerForm.get('password').touched">
+                        A senha é obrigatório
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label" for="confirmPassword">Confirmar senha</label><br/>
+                    <input
+                        type="password" 
+                        formControlName="confirmPassword" 
+                        minlength="4"
+                        placeholder="********"
+                        required />
+                    <div class="error-txt" *ngIf="(registerForm.get('password').value !== registerForm.get('confirmPassword').value) && registerForm.get('confirmPassword').touched">
+                        As senhas são diferentes
+                    </div>        
+                    <div class="error-txt" *ngIf="registerForm.get('confirmPassword').errors && registerForm.get('confirmPassword').touched">
+                        Necessário confirmar a senha
+                    </div>
+                </div>
+            </div>
+            <div class="field" *ngIf="error">
+                <p class="error-txt"> {{ error }}</p>
+            </div>
+            <input 
+                type="submit" 
+                class="submit-btn" 
+                value="Cadastrar-se"
+                [disabled]="!validate() && !submitted" />
+        </fieldset>
+    </form>
+</body>
+</article>
