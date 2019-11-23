@@ -26,9 +26,12 @@ CREATE TABLE  IF NOT EXISTS `ferramenta` (
   `tipoFerramenta` varchar(20) NOT NULL,
   `patFerramenta` varchar(255) NOT NULL,
   `disc_codigo` smallint(6) NOT NULL,
-  PRIMARY KEY (`codigo`),
+  `cur_codigo` smallint(6) NOT NULL,
+  PRIMARY KEY (`codigo`), 
   KEY `ferramenta_FK` (`disc_codigo`),
-  CONSTRAINT `ferramenta_FK` FOREIGN KEY (`disc_codigo`) REFERENCES `disciplina` (`codigo`)
+  CONSTRAINT `ferramenta_FK` FOREIGN KEY (`disc_codigo`) REFERENCES `disciplina` (`codigo`),
+  KEY `ferramenta_FKK` (`cur_codigo`),
+  CONSTRAINT `ferramenta_FKK` FOREIGN KEY (`cur_codigo`) REFERENCES `curso` (`codigo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 CREATE TABLE  IF NOT EXISTS `usuario` (
