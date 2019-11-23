@@ -23,22 +23,12 @@ module.exports = class CourseService {
             })
         });
     }
-    async findPageByCourseId(courseId, start, limit){
+    async findAllByCourseId(courseId){
         return new Promise((resolve, reject) => {
-            db.query("SELECT count(*) as TotalCount FROM disciplina", (err, res) => {
+            db.query("SELECT * FROM disciplina WHERE cur_codigo = ?", courseId, (err, data) => {
                 if(err) reject(err);
-                
-                const totalCount = res[0].TotalCount;
 
-                var query = "SELECT * FROM disciplina WHERE cur_codigo = ? ORDER BY codigo DESC LIMIT ? OFFSET ?";
-                const params = [courseId, limit, start];
-    
-                query = db.format(query, params);
-                db.query(query, (err, data) => {
-                    if(err) reject(err);
-                    
-                    resolve({totalCount, data});
-                });
+                resolve({data});
             });
         });
     }

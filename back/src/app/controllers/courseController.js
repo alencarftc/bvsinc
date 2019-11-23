@@ -34,8 +34,8 @@ module.exports = {
 
 		const courseService = new CourseService();
 		const newCourse = new CourseModel(descricao);
-
-		if (req.method === 'PUT') {
+		
+		if (req.method === 'PUT') { 
 			courseService.updateCourse(courseId, newCourse)
 				.then((response) => res
 					.status(204)

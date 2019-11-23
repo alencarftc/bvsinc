@@ -27,4 +27,8 @@ export class DisciplineService {
     public add(discipline: DisciplineModel) : Observable<any>{
         return this.http.post(`${this.api}/${this.url}`, discipline, {});
     }
+
+    public findAllById(id){
+        return this.http.get<any>(`${this.api}/${this.coursesUrl}/${id}/disciplines`);
+    }
 }

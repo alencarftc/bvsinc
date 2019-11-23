@@ -13,7 +13,7 @@ const routes = express.Router();
 routes.post("/users/authenticate", SessionController.store);
 routes.post("/users", UserController.store, sessionMiddleware.checkToken);
 
-routes.get("/courses/:courseId/disciplines", DisciplineController.findPageByCourseId);
+routes.get("/courses/:courseId/disciplines", DisciplineController.findAllByCourseId);
 routes.get("/courses/:courseId", CourseController.findCourseById);
 routes.get("/courses", CourseController.findAll);
 routes.post("/courses", CourseController.addOrUpdateCourse);

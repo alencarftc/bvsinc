@@ -9,5 +9,6 @@ export interface ToolModel {
     clasFerramenta: string,
     tipoFerramenta: string,
     patFerramenta: string,
-    disc_codigo: number
+    disc_codigo: number,
+    cur_codigo: number
 }

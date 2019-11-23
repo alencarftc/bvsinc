@@ -37,7 +37,6 @@ module.exports = {
                                 });    
                         })
                         .catch(err => { 
-                            console.log('deu merda', err)
                             res.status(500);
                         })
                     })

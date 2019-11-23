@@ -1,6 +1,50 @@
-<div class="row">
-    <h2 class="title">Soluções</h2>
-    <button (click)="goToNewTool()" class="add-btn">Adicionar</button>
+<div class="header-row row">
+    <div class="title-row row">
+        <h2 class="title">Soluções</h2>
+        <button
+            (click)="goToNewTool()" 
+            class="add-btn">
+        </button>
+    </div>
+
+    <div class="filter-row row" [formGroup]="filterFormGroup">
+        <select (change)="update()" 
+            class="select-input" 
+            formControlName="courseFilter">
+            <option value="" selected>
+                Todos os cursos
+            </option>
+            <option [value]="course.codigo" 
+                *ngFor="let course of courses">
+                {{ course.descricao }}
+            </option>    
+        </select>
+        <select (change)="update()" 
+            class="select-input" 
+            formControlName="disciplineFilter">
+            <option value="" selected>
+                Todos as disciplinas
+            </option>
+            <option [value]="discipline.codigo" 
+                *ngFor="let discipline of disciplines">
+                {{ discipline.descricao }}
+            </option>
+        </select>
+        
+        <div class="search-container">
+            <input type="text"
+                class="search-input"
+                placeholder="Pesquisar..."
+                (keyup)="debounce.next($event.target.value)"
+                formControlName="searchString" />
+
+                <mat-icon class="search-icon"
+                    (click)="update()"> 
+                    search 
+                </mat-icon>
+        </div>
+        
+    </div>
 </div>
 
 <div class="list-inner" *ngIf="tools && tools.length > 0; else noTools">

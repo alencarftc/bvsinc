@@ -16,13 +16,22 @@ export class ToolService {
 
     constructor(private http: HttpClient){}
 
-    public findAll(start, limit) : Observable<any> {
-        const httpParams = new HttpParams()
-            .append("start", start.toString())
-            .append("limit", limit.toString())
-            console.log(start, limit)
+    public findAll(start, limit, filterData) : Observable<any> {
+        var params = "?";
 
-        return this.http.get(`${this.api}/${this.toolsUrl}`, { params: httpParams });
+        params += `start=${start}`;
+        params += `&limit=${limit}`;
+        
+        if( filterData.course && filterData.course.length > 0  )
+            params += `&course=${filterData.course}`;
+
+        if( filterData.discipline && filterData.discipline.length > 0 )
+            params += `&discipline=${filterData.discipline}`;
+
+        if( filterData.search && filterData.search.length > 0 )
+            params += `&search=${filterData.search}`;
+
+        return this.http.get(`${this.api}/${this.toolsUrl}${params}`);
     }
 
     public add(tool: ToolModel) : Observable<any> {

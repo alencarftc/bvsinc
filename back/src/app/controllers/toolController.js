@@ -5,15 +5,9 @@ const DisciplineService = require('../../services/disciplineService');
 module.exports = {
     async findAll(req, res){
         const toolService = new ToolService()
-        var { start, limit } = req.query;
+        var { start, limit, course, discipline, search } = req.query;
 
-        console.log(req)
-        if( !start || !limit ){
-            start = 0;
-            limit = 10;
-        }
-
-        toolService.findPage(start, limit)
+        toolService.findPage(start, limit, course, discipline, search)
             .then(response => res
                 .status(200)
                 .json(response))
@@ -64,7 +58,7 @@ module.exports = {
         const { titulo, objFerramenta, 
                 descFerramenta, siteFerramenta,
                 clasFerramenta, tipoFerramenta,
-                patFerramenta, disc_codigo } = req.body;
+                patFerramenta, disc_codigo, cur_codigo } = req.body;
         const { toolId } = req.params;
                 
         const toolService = new ToolService();
@@ -73,11 +67,12 @@ module.exports = {
             titulo, descFerramenta, 
             siteFerramenta, clasFerramenta, 
             tipoFerramenta, objFerramenta, 
-            patFerramenta, disc_codigo
+            patFerramenta, disc_codigo, 
+            cur_codigo
         );            
 
         if( req.method == 'PUT' && toolId ){
-            toolService.updateTool(toolId, newTool, disc_codigo)
+            toolService.updateTool(toolId, newTool, disc_codigo, cur_codigo)
                 .then(response => res
                     .status(204)
                     .json(response))

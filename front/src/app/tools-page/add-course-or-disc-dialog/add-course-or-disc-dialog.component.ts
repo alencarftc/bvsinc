@@ -69,7 +69,6 @@ export class AddCourseOrDiscDialogComponent implements OnInit {
 
     this.disciplineService.add(newDiscipline).subscribe(response => {
       this.discipline = response.content;
-      console.log(this.discipline)
       this.isCourseOk = true;
       this.sucess = true;
     });

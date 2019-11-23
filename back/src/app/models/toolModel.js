@@ -6,7 +6,8 @@ module.exports = class ToolModel {
                 tipoFerramenta,
                 objFerramenta, 
                 patFerramenta,
-                disc_codigo){
+                disc_codigo,
+                cur_codigo){
         this.titulo = titulo;
         this.objFerramenta = objFerramenta;
         this.descFerramenta = descFerramenta;
@@ -15,5 +16,6 @@ module.exports = class ToolModel {
         this.tipoFerramenta = tipoFerramenta;
         this.patFerramenta = patFerramenta;
         this.disc_codigo = disc_codigo;
+        this.cur_codigo = cur_codigo;
     }
 }

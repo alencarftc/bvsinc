@@ -124,6 +124,7 @@ export class ToolSaveEditComponent implements OnInit {
   onSubmit() {
     const { codigo, title, objective, description, website, classification, type, actors } = this.newToolForm.value;
     const disc_codigo = this.disciplineFormGroup.get('discipline').value;
+    const cur_codigo = this.courseFormGroup.get('course').value
 
     const newTool: ToolModel = {
       codigo: codigo ? codigo : null,
@@ -134,9 +135,12 @@ export class ToolSaveEditComponent implements OnInit {
       clasFerramenta: classification,
       tipoFerramenta: type,
       patFerramenta: actors,
-      disc_codigo, 
+      disc_codigo,
+      cur_codigo
     }
 
+
+    console.log(newTool )
     this.toolService.add(newTool).subscribe(response => {
       this.router.navigate(['ferramentas']);
     });

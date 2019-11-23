@@ -14,25 +14,20 @@ module.exports = {
                 .status(500)
                 .json({ message: err }));
     },
-    async findPageByCourseId(req, res){
-        var { courseId, start, limit } = req.params;
-
-        if( !start || !limit ){
-            start = 0;
-            limit = 10;
-        }
+    async findAllByCourseId(req, res){
+        var { courseId } = req.params;
 
         if( !courseId )
             return res.status(403).json({ message: "Disciplina inválida" });
 
         const disciplineService = new DisciplineService();
-        disciplineService.findPageByCourseId(courseId, start, limit)
+        disciplineService.findAllByCourseId(courseId)
             .then(response => res
                 .status(200)
                 .json(response))
             .catch(err => res
                 .status(500)
-                .json(err))
+                .json({ err }))
     },
     async addOrUpdateDiscipline(req, res){
         const { descricao, cur_codigo } = req.body;
@@ -47,7 +42,6 @@ module.exports = {
                     .status(204)
                     .json({ message: "Disciplina atualizada com sucesso" }))
                 .catch(err => {
-                    console.log(err)
                     if ( !err || err.length == 0 )
                         return res
                             .status(404)

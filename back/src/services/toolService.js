@@ -2,20 +2,58 @@ const db = require('../config/mysql');
 const ToolModel = require('../app/models/toolModel')
 
 module.exports = class ToolService {
-    async findPage(start, limit){
+    async findPage(start, limit, course, discipline, search){
         return new Promise((resolve, reject) => {
-            db.query("SELECT count(*) as TotalCount FROM ferramenta", (err, res) => {
+            db.query("SELECT count(*) as TotalCount FROM ferramenta ", (err, res) => {
                 if(err) reject(err);
                 
                 const totalCount = res[0].TotalCount;
+                var query = "SELECT * FROM ferramenta "
 
-                var query = "SELECT * FROM ferramenta ORDER BY codigo DESC LIMIT ? OFFSET ?"; 
-                const params = [parseInt(limit), parseInt(start)];
+                var params = [];
+                
+                if( !start || !limit ){
+                    start = 0;
+                    limit = 10;
+                }
+                 
+                if( course ){
+                    query += "WHERE cur_codigo = ? ";
+                    params.push(+course);
+                }
+                
+                if( discipline ){
+                    if( course || search ) {
+                        query += " AND ";
+                    }
+                    else {
+                        query += " WHERE "
+                    }
+
+                    query += " disc_codigo = ? ";
+                    params.push(+discipline);
+                }
+                
+                if( search ){
+                    if( course || discipline ){
+                        query += ` AND  `;
+                    }
+                    else {
+                        query += " WHERE ";
+                    }
+
+                    query += ` titulo LIKE '%${search}%' `;
+                }
     
+                query += "ORDER BY codigo DESC LIMIT ? OFFSET ?";
+
+                params.push(+limit)
+                params.push(+start)
+
                 query = db.format(query, params);
                 db.query(query, (err, data) => {
                     if(err) reject(err);
-                    
+                        
                     resolve({totalCount, data});
                 });
             });
@@ -30,7 +68,7 @@ module.exports = class ToolService {
 
                 var query = "SELECT * FROM ferramenta WHERE disc_codigo = ? ORDER BY codigo DESC LIMIT ? OFFSET ?"; 
                 const params = [disciplineId, limit, start];
-    
+
                 query = db.format(query, params);
                 db.query(query, (err, data) => {
                     if(err) reject(err);
