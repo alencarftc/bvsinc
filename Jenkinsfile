@@ -1,28 +1,12 @@
 
 
-
 pipeline {
 
     stages {
-         stage 'Checkout' {
-            cleanWs()
-            checkout([$class: 'SubversionSCM', 
-            additionalCredentials: [], 
-            excludedCommitMessages: '', 
-            excludedRegions: '', 
-            excludedRevprop: '', 
-            excludedUsers: '', 
-            filterChangelog: false, 
-            ignoreDirPropChanges: false, 
-            includedRegions: '', 
-            locations: [[cancelProcessOnExternalsFail: true, 
-            credentialsId: '234243-45654-234randomstuff', 
-            depthOption: 'infinity', 
-            ignoreExternalsOption: true, 
-            local: '.', 
-            remote: 'https://gitlab.com/alencarfff/solinc/']],
-            quietOperation: true, 
-            workspaceUpdater: [$class: 'UpdateUpdater']])
+        stage('Checkout') {
+            steps{
+                checkout scm
+            }
         }
         
         stage('Front-End') {
@@ -50,19 +34,20 @@ pipeline {
         
         stage('Test') {
             steps {
+                sh 'ok but what i do here at teste now'
                 
             }
         }
         
         stage('Push') {
             steps {
-                
+                sh 'ok but what i do here at database push now'
             }
         }
         
         stage('Deploy') {
             steps {
-                
+                sh 'ok but what i do here at deploy now'
             }
         }
     }
